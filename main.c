@@ -6,39 +6,17 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:54:30 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/26 16:20:33 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/26 18:48:48 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	initialize_data(int ac, char **av, t_data *data)
+void	handle_solo(t_data *data)
 {
-	int	i;
-	int	nb;
-
-	data->number_philos = (int)my_atoi(av[1]);
-	data->time_to_die = my_atoi(av[2]);
-	data->time_to_eat = my_atoi(av[3]);
-	data->time_to_sleep = my_atoi(av[4]);
-	if (av[5])
-		data->number_meals = (int)my_atoi(av[5]);
-	else
-		data->number_meals = -1; //jsp trop, juste pr dire infini
-	nb = data->number_philos;
-	data->philos = (t_philo *)malloc(sizeof(t_philo) * nb);
-	data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * nb);
-	if (!(data->philos) || !(data->forks))
-		return (0);
-	i = -1;
-	while (++i < nb)
-	{
-		if (pthread_mutex_init(data->forks + i, NULL) != 0)
-			return (big_free(data->forks, data->philos)
-				  , perror("mutex init failed !\n"), 0);
-	}
-    data->start_time = get_time_ms();
-	return (1);
+	printf("0 1 has taken a fork");
+	usleep(data->time_to_die * 1000);
+	printf("%lld 1 died", data->time_to_die);
 }
 
 int	main(int ac, char **av)
@@ -47,5 +25,11 @@ int	main(int ac, char **av)
 
 	if (!parsing(ac, av) || !(initialize_data(ac, av, &data)))
 		return (1);
-	
+	init_philo(&data);
+	if (1 == data.number_philos)
+	{
+		handle_solo(&data);
+		return (free_and_destroy(&data));
+	}
+	return (0);
 }

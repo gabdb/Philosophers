@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:55:41 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/26 16:19:35 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/26 18:50:04 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,11 @@
 # include <sys/time.h>
 # include <sys/types.h>
 
-typedef struct s_philo
-{
-	int				id; //ranking them
-	pthread_t		thread;
-	pthread_mutex_t	left_fork;
-	pthread_mutex_t	right_fork;
-	int				is_eating;
-	long long		last_meal_time;
-	int				meals;
-}               t_philo;
+struct s_philo;
 
 typedef struct s_data
 {
-	t_philo			*philos;
+	struct s_philo			*philos;
 	pthread_mutex_t	*forks;
 
 	int				number_philos;
@@ -44,18 +35,39 @@ typedef struct s_data
 	int				number_meals; // (truc optionnel)
 
 	long long		start_time;
+	int				someone_dead;
 	
 	pthread_mutex_t	print_mutex; //pr pas qu'ils ne printent en mm temps
 }				t_data;
 
-// UTILS
-long long	my_atoi(const char *str);
-long long 	get_time_ms(void);
+typedef struct s_philo
+{
+	int				id; //ranking them
+	pthread_t		thread;
+
+	int				left_fork;
+	int				right_fork;
+	int				is_eating;
+	long long		last_meal_time;
+	int				meals;
+
+	t_data			*data;
+
+}               t_philo;
 
 // PARSING
 int	parsing(int ac, char **av);
 
+//INIT
+int	initialize_data(int ac, char **av, t_data *data);
+void	init_philo(t_data *data);
+
 //FREE
-void	big_free(pthread_mutex_t *forks, pthread_t *philos);
+void	big_free(pthread_mutex_t *forks, t_philo *philos);
+int		free_and_destroy(t_data *data);
+
+// UTILS
+long long	my_atoi(const char *str);
+long long 	get_time_ms(void);
 
 #endif
