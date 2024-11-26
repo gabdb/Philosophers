@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:54:30 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/24 22:54:03 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:20:33 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	initialize_data(int ac, char **av, t_data *data)
 	else
 		data->number_meals = -1; //jsp trop, juste pr dire infini
 	nb = data->number_philos;
-	data->philos = (pthread_t *)malloc(sizeof(pthread_t) * (nb + 1)); //place pr NULL
-	data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * (nb + 1));
+	data->philos = (t_philo *)malloc(sizeof(t_philo) * nb);
+	data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * nb);
 	if (!(data->philos) || !(data->forks))
 		return (0);
 	i = -1;
@@ -37,6 +37,7 @@ int	initialize_data(int ac, char **av, t_data *data)
 			return (big_free(data->forks, data->philos)
 				  , perror("mutex init failed !\n"), 0);
 	}
+    data->start_time = get_time_ms();
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 18:20:47 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/24 17:05:54 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:19:16 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,11 @@ long long	my_atoi(const char *str)
 		buff = res;
 	}
 	return ((long long) sign * res);
+}
+
+long long get_time_ms(void)
+{
+    struct timeval time;
+    gettimeofday(&time, NULL);
+    return (time.tv_sec * 1000) + (time.tv_usec / 1000);
 }
