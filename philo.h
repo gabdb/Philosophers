@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:55:41 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/26 18:50:04 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/27 23:28:19 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,7 @@
 # include <sys/time.h>
 # include <sys/types.h>
 
-struct s_philo;
-
-typedef struct s_data
-{
-	struct s_philo			*philos;
-	pthread_mutex_t	*forks;
-
-	int				number_philos;
-	long long		time_to_die;
-	long long		time_to_eat;
-	long long		time_to_sleep;
-	int				number_meals; // (truc optionnel)
-
-	long long		start_time;
-	int				someone_dead;
-	
-	pthread_mutex_t	print_mutex; //pr pas qu'ils ne printent en mm temps
-}				t_data;
+struct s_data;
 
 typedef struct s_philo
 {
@@ -51,15 +34,33 @@ typedef struct s_philo
 	long long		last_meal_time;
 	int				meals;
 
-	t_data			*data;
+	struct s_data			*data;
 
 }               t_philo;
+
+typedef struct s_data
+{
+	t_philo			*philos;
+	pthread_mutex_t	*forks;
+
+	int				number_philos;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
+	int				number_meals; // (truc optionnel)
+
+	long long		start_time;
+	int				someone_dead;
+	
+	pthread_mutex_t	print_mutex; //pr pas qu'ils ne printent en mm temps
+	pthread_mutex_t	check_death; //jsp trop
+}				t_data;
 
 // PARSING
 int	parsing(int ac, char **av);
 
 //INIT
-int	initialize_data(int ac, char **av, t_data *data);
+int	initialize_data(char **av, t_data *data);
 void	init_philo(t_data *data);
 
 //FREE

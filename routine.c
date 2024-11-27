@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 14:54:30 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/28 00:13:23 by gnyssens         ###   ########.fr       */
+/*   Created: 2024/11/27 16:13:09 by gnyssens          #+#    #+#             */
+/*   Updated: 2024/11/28 00:14:34 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	handle_solo(t_data *data)
+void	*routine(void *arg)
 {
-	printf("0 1 has taken a fork\n");
-	usleep(data->time_to_die * 1000);
-	printf("%lld 1 died", data->time_to_die);
-}
+	int			i;
+	t_data		*data;
+	t_philo		*philos;
 
-int	main(int ac, char **av)
-{
-	t_data	data;
-
-	if (!parsing(ac, av) || !(initialize_data(av, &data)))
-		return (1);
-	write(1, "CHECK\n", 6);
-	init_philo(&data);
-	if (1 == data.number_philos)
+	data = (t_data *)arg;
+	philos = data->philos;
+	while (data->someone_dead == 0)
 	{
-		handle_solo(&data);
-		return (free_and_destroy(&data));
+		
 	}
-	
-	return (0);
 }

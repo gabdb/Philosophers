@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:17:35 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/26 18:21:47 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/28 00:11:51 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_philo(t_data *data)
 	}
 }
 
-int	initialize_data(int ac, char **av, t_data *data)
+int	initialize_data(char **av, t_data *data)
 {
 	int	nb;
 
@@ -56,7 +56,7 @@ int	initialize_data(int ac, char **av, t_data *data)
 			return (big_free(data->forks, data->philos)
 				  , write(2, "mutex init failed !\n", 20), 0);
 	}
-    if (pthread_mutex_init(&data->print_mutex, NULL) != 0) //yen aura d'autres !
+    if (pthread_mutex_init(&data->print_mutex, NULL) || pthread_mutex_init(&data->check_death, NULL)) //yen aura d'autres !
         return (write(2, "mutex init failed !\n", 20), 1);
     data->start_time = get_time_ms();
 	data->someone_dead = 0;
