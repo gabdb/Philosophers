@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:17:35 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/28 00:11:51 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:58:04 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ void	init_philo(t_data *data)
 		data->philos[i].id = 1 + i;
 		data->philos[i].is_eating = 0;
 		data->philos[i].last_meal_time = data->start_time;
-		data->philos[i].meals = 0;
+		data->philos[i].meals_eaten = 0;
 		data->philos[i].left_fork = i;
 		if (i < data->number_philos - 1)
 			data->philos[i].right_fork = i + 1;
 		else
 			data->philos[i].right_fork = 0; //dernier philo
+		data->philos[i].is_dead = 0;
 		i++;
 	}
 }

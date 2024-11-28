@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:54:30 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/28 00:13:23 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:38:50 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	handle_solo(t_data *data)
 
 int	main(int ac, char **av)
 {
-	t_data	data;
+	int			i;
+	t_data		data;
+	pthread_t	check_death;
 
 	if (!parsing(ac, av) || !(initialize_data(av, &data)))
-		return (1);
+		return (0);
 	write(1, "CHECK\n", 6);
 	init_philo(&data);
 	if (1 == data.number_philos)
@@ -32,6 +34,19 @@ int	main(int ac, char **av)
 		handle_solo(&data);
 		return (free_and_destroy(&data));
 	}
-	
+	if (pthread_create(check_dead, NULL, check_dead, &data) != 0)
+		return (free_and_destroy(&data), write(2, "failed to create thread\n", 24), 1);
+	i = -1;
+	while (++i < data.number_philos)
+	{
+		if (pthread_create(&data.philos[i].thread, NULL, routine, data.philos + i) != 0)
+			return (free_and_destroy(&data), write(2, "failed to create thread\n", 24), 1);
+	}
+	i = -1;
+	while (++i < data.number_philos)
+	{
+		
+	}
+
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:55:41 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/27 23:28:19 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:25:40 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ typedef struct s_philo
 	int				right_fork;
 	int				is_eating;
 	long long		last_meal_time;
-	int				meals;
+	int				meals_eaten;
+	int				is_dead;
 
 	struct s_data			*data;
 
@@ -51,6 +52,7 @@ typedef struct s_data
 
 	long long		start_time;
 	int				someone_dead;
+	int				dead_id;
 	
 	pthread_mutex_t	print_mutex; //pr pas qu'ils ne printent en mm temps
 	pthread_mutex_t	check_death; //jsp trop
@@ -70,5 +72,9 @@ int		free_and_destroy(t_data *data);
 // UTILS
 long long	my_atoi(const char *str);
 long long 	get_time_ms(void);
+
+//ROUTINE
+void	*routine(void *arg);
+void	*check_dead(void *arg);
 
 #endif
