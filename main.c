@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:54:30 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/28 17:38:50 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:36:30 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,13 @@ int	main(int ac, char **av)
 
 	if (!parsing(ac, av) || !(initialize_data(av, &data)))
 		return (0);
-	write(1, "CHECK\n", 6);
 	init_philo(&data);
 	if (1 == data.number_philos)
 	{
 		handle_solo(&data);
 		return (free_and_destroy(&data));
 	}
-	if (pthread_create(check_dead, NULL, check_dead, &data) != 0)
+	if (pthread_create(&check_death, NULL, check_dead, &data) != 0)
 		return (free_and_destroy(&data), write(2, "failed to create thread\n", 24), 1);
 	i = -1;
 	while (++i < data.number_philos)
@@ -45,8 +44,11 @@ int	main(int ac, char **av)
 	i = -1;
 	while (++i < data.number_philos)
 	{
-		
+		if (pthread_join(data.philos[i].thread, NULL) || pthread_join(check_death, NULL))
+			return (free_and_destroy(&data), write(2, "problem with pthread_join\n", 26), 1);
 	}
 
+	free_and_destroy(&data);
+	pthread_mutex_destroy(&data.print_mutex);
 	return (0);
 }
