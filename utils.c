@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 18:20:47 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/26 16:19:16 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/30 18:35:42 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,14 @@ long long get_time_ms(void)
     struct timeval time;
     gettimeofday(&time, NULL);
     return (time.tv_sec * 1000) + (time.tv_usec / 1000);
+}
+
+void	ft_usleep(long int time_in_ms)
+{
+	long int	start_time;
+
+	start_time = 0;
+	start_time = get_time_ms();
+	while ((get_time_ms() - start_time) < time_in_ms)
+		usleep(time_in_ms / 10);
 }

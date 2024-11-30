@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:54:30 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/30 00:46:45 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/30 23:38:19 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	handle_solo(t_data *data)
 {
 	printf("0 1 has taken a fork\n");
-	usleep(data->time_to_die * 1000);
+	ft_usleep(data->time_to_die);
 	printf("%lld 1 died", data->time_to_die);
 }
 
@@ -33,14 +33,14 @@ int	main(int ac, char **av)
 		handle_solo(&data);
 		return (free_and_destroy(&data));
 	}
-	if (pthread_create(&check_death, NULL, check_dead, &data) != 0)
-		return (free_and_destroy(&data), write(2, "failed to create thread\n", 24), 1);
 	i = -1;
 	while (++i < data.number_philos)
 	{
 		if (pthread_create(&data.philos[i].thread, NULL, routine, data.philos + i) != 0)
 			return (free_and_destroy(&data), write(2, "failed to create thread\n", 24), 1);
 	}
+	if (pthread_create(&check_death, NULL, check_dead, &data) != 0)
+		return (free_and_destroy(&data), write(2, "failed to create thread\n", 24), 1);
 	i = -1;
 	while (++i < data.number_philos)
 	{

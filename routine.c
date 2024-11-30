@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:13:09 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/30 00:53:53 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/30 23:43:57 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	*check_dead(void *arg)
 			return (NULL);
 		}
 		
-		(void) usleep(30); //jsp si necessaire, pr eviter de surchauffer
+		//ft_usleep(1); //jsp si necessaire, pr eviter de surchauffer
 	}
 	return (NULL);
 }
@@ -65,9 +65,14 @@ void	*routine(void *arg)
 	while (1)
 	{
 		//check death
-		if (data->someone_dead)
-			break;
-		if (get_time_ms() - philo->last_meal_time > data->time_to_die)
+		pthread_mutex_lock(&data->death_mutex);
+        if (data->someone_dead)
+        {
+            pthread_mutex_unlock(&data->death_mutex);
+            break;
+        }
+        pthread_mutex_unlock(&data->death_mutex);
+		if (get_time_ms() - philo->last_meal_time  + data->time_to_eat > data->time_to_die)
 		{
 			philo->is_dead = 1;
 			pthread_mutex_lock(&data->death_mutex); //p e enlever ce mutex
@@ -79,7 +84,7 @@ void	*routine(void *arg)
 		if (data->number_meals != -1 && philo->meals_eaten >= data->number_meals)
 			break;
 		if (philo->id % 2 == 0)
-			(void) usleep(5000); //sleep 5 ms to avoid bug
+			usleep(50); //sleep 0.5 ms to avoid bug
 		lf = philo->left_fork;
 		pthread_mutex_lock(data->forks + lf);
 		if (data->someone_dead)
@@ -103,7 +108,7 @@ void	*routine(void *arg)
 		pthread_mutex_lock(&data->print_mutex);
 		printf("%lld %d is eating\n", get_time_ms() - data->start_time, philo->id);
 		pthread_mutex_unlock(&data->print_mutex);
-		(void) usleep(data->time_to_eat * 1000);
+		ft_usleep(data->time_to_eat);
 		pthread_mutex_unlock(data->forks + lf);
 		pthread_mutex_unlock(data->forks + rf);
 		philo->is_eating = 0;
@@ -117,7 +122,7 @@ void	*routine(void *arg)
 		pthread_mutex_lock(&data->print_mutex);
 		printf("%lld %d is sleeping\n", get_time_ms() - data->start_time, philo->id);
 		pthread_mutex_unlock(&data->print_mutex);
-		(void) usleep(data->time_to_sleep * 1000);
+		ft_usleep(data->time_to_sleep);
 		
 		//philo is done sleeping
 		if (data->someone_dead)
