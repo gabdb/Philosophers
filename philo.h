@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:55:41 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/28 17:25:40 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/30 00:20:49 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_data
 	int				dead_id;
 	
 	pthread_mutex_t	print_mutex; //pr pas qu'ils ne printent en mm temps
-	pthread_mutex_t	check_death; //jsp trop
+	pthread_mutex_t	death_mutex; //jsp trop
 }				t_data;
 
 // PARSING
@@ -76,5 +76,6 @@ long long 	get_time_ms(void);
 //ROUTINE
 void	*routine(void *arg);
 void	*check_dead(void *arg);
+int	all_meals_eaten(t_data *data);
 
 #endif

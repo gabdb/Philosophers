@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 17:43:16 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/26 18:51:13 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/30 00:12:53 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	free_and_destroy(t_data *data)
 	while (++i < data->number_philos)
 		pthread_mutex_destroy(data->forks + i);
 	pthread_mutex_destroy(&data->print_mutex); //yen aura d'autres ! style un thread qui check en permanence si ya un mort
+	pthread_mutex_destroy(&data->death_mutex);
 	free(data->forks);
 	free(data->philos);
 	return (0);

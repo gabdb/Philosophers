@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:54:30 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/28 18:36:30 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/11/30 00:46:45 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ int	main(int ac, char **av)
 	i = -1;
 	while (++i < data.number_philos)
 	{
-		if (pthread_join(data.philos[i].thread, NULL) || pthread_join(check_death, NULL))
+		if (pthread_join(data.philos[i].thread, NULL))
 			return (free_and_destroy(&data), write(2, "problem with pthread_join\n", 26), 1);
 	}
+	if (pthread_join(check_death, NULL))
+		return (free_and_destroy(&data), write(2, "problem with pthread_join in CHECK_DEATH\n", 41), 1);
 
 	free_and_destroy(&data);
 	pthread_mutex_destroy(&data.print_mutex);
