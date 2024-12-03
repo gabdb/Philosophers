@@ -2,7 +2,7 @@ NAME = philo
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread #-fsanitize=thread
 
 # Source files
 SRCS =	main.c \
@@ -11,6 +11,7 @@ SRCS =	main.c \
 		utils.c \
 		free.c \
 		parsing.c \
+		routine_utils.c \
 
 # Object files
 OBJS = $(SRCS:.c=.o)

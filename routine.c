@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:13:09 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/03 14:01:50 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:49:52 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	data = philo->data;
 	philo->last_meal_time = data->start_time;
+	if (philo->id % 2)// == 0 && philo->meals_eaten == 0)
+	ft_usleep(data->time_to_die / 2); //sleep a bit to avoid bug
 	while (1)
 	{
 		//check death
@@ -102,8 +104,8 @@ void	*routine(void *arg)
 		
 		if (data->number_meals != -1 && philo->meals_eaten >= data->number_meals)
 			break;
-		if (philo->id % 2)// == 0 && philo->meals_eaten == 0)
-			usleep(800); //sleep a bit to avoid bug
+		//if (philo->id % 2)// == 0 && philo->meals_eaten == 0)
+		//	usleep(data->time_to_die * 10); //sleep a bit to avoid bug
 		lf = philo->left_fork;
 		pthread_mutex_lock(data->forks + lf);
 		if (data->someone_dead)

@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:54:30 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/03 13:54:21 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:20:35 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,10 @@ int	main(int ac, char **av)
 	t_data		data;
 	pthread_t	check_death;
 
-	if (!parsing(ac, av) || !(initialize_data(av, &data)))
+	if (!parsing(ac, av) || !(initialize_data(av, &data)) || !init_philo(&data))
 		return (0);
-	init_philo(&data);
 	if (1 == data.number_philos)
-	{
-		handle_solo(&data);
-		return (free_and_destroy(&data));
-	}
+		return (handle_solo(&data), free_and_destroy(&data));
 	i = -1;
 	while (++i < data.number_philos)
 	{
@@ -49,8 +45,5 @@ int	main(int ac, char **av)
 	}
 	if (pthread_join(check_death, NULL))
 		return (free_and_destroy(&data), write(2, "problem with pthread_join in CHECK_DEATH\n", 41), 1);
-
-	free_and_destroy(&data);
-	pthread_mutex_destroy(&data.print_mutex);
-	return (0);
+	return (free_and_destroy(&data), pthread_mutex_destroy(&data.print_mutex), 0);
 }
