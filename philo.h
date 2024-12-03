@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:55:41 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/03 14:34:05 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:24:01 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ struct s_data;
 
 typedef struct s_philo
 {
-	int				id; //ranking them
-	pthread_t		thread;
+	int					id; //ranking them
+	pthread_t			thread;
 
-	int				left_fork;
-	int				right_fork;
-	int				is_eating;
-	long long		last_meal_time;
-	int				meals_eaten;
-	int				is_dead;
+	int					left_fork;
+	int					right_fork;
+	_Atomic int			is_eating;
+	_Atomic long long	last_meal_time;
+	_Atomic int			meals_eaten;
+	_Atomic int			is_dead;
 
 	struct s_data			*data;
 

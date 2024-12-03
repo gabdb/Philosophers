@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:13:09 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/03 14:49:52 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:35:02 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,49 +83,59 @@ void	*routine(void *arg)
 	ft_usleep(data->time_to_die / 2); //sleep a bit to avoid bug
 	while (1)
 	{
-		//check death
 		pthread_mutex_lock(&data->death_mutex);
         if (data->someone_dead)
-        {
-            pthread_mutex_unlock(&data->death_mutex);
+		{
+			pthread_mutex_unlock(&data->death_mutex);
             break;
-        }
-        pthread_mutex_unlock(&data->death_mutex);
-		
-		if (get_time_ms() - philo->last_meal_time > data->time_to_die) //+ data->time_to_eat ?
+		}
+		if (get_time_ms() - philo->last_meal_time > data->time_to_die)
 		{
 			philo->is_dead = 1;
-			pthread_mutex_lock(&data->death_mutex); //p e enlever ce mutex
 			data->someone_dead = 1;
 			data->dead_id = philo->id;
 			pthread_mutex_unlock(&data->death_mutex);
 			break;
 		}
-		
+		pthread_mutex_unlock(&data->death_mutex);
 		if (data->number_meals != -1 && philo->meals_eaten >= data->number_meals)
 			break;
-		//if (philo->id % 2)// == 0 && philo->meals_eaten == 0)
-		//	usleep(data->time_to_die * 10); //sleep a bit to avoid bug
 		lf = philo->left_fork;
+		if (philo->id == data->number_philos)
+			lf = philo->right_fork;
 		pthread_mutex_lock(data->forks + lf);
 		if (data->someone_dead)
+		{
+			pthread_mutex_unlock(data->forks + lf);
 			break;
+		}
 		pthread_mutex_lock(&data->print_mutex);
 		printf("%lld %d has taken a fork\n", get_time_ms() - data->start_time, philo->id);
 		pthread_mutex_unlock(&data->print_mutex);
 		rf = philo->right_fork;
+		if (philo->id == data->number_philos)
+			rf = philo->left_fork;
 		pthread_mutex_lock(data->forks + rf);
 		if (data->someone_dead)
+		{
+			pthread_mutex_unlock(data->forks + lf);
+			pthread_mutex_unlock(data->forks + rf);
 			break;
+		}
 		pthread_mutex_lock(&data->print_mutex);
 		printf("%lld %d has taken a fork\n", get_time_ms() - data->start_time, philo->id);
 		pthread_mutex_unlock(&data->print_mutex);
 		
 		//now that philo has 2 forks, and can eat
-		
-		philo->is_eating = 1; //SERT A RIEN ?
+		pthread_mutex_lock(&data->death_mutex);
 		if (data->someone_dead)
+		{
+			pthread_mutex_unlock(data->forks + lf);
+			pthread_mutex_unlock(data->forks + rf);
 			break;
+		}
+		pthread_mutex_unlock(&data->death_mutex);
+		philo->is_eating = 1;
 		pthread_mutex_lock(&data->print_mutex);
 		printf("%lld %d is eating\n", get_time_ms() - data->start_time, philo->id);
 		philo->last_meal_time = get_time_ms();
