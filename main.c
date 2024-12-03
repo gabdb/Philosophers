@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:54:30 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/03 14:20:35 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:59:27 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	handle_solo(t_data *data)
 {
 	printf("0 1 has taken a fork\n");
-	ft_usleep(data->time_to_die);
+	ft_usleep(data->time_to_die, data);
 	printf("%lld 1 died", data->time_to_die);
 }
 

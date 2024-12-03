@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:55:41 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/03 15:24:01 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:57:57 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		free_and_destroy(t_data *data);
 // UTILS
 long long	my_atoi(const char *str);
 long long 	get_time_ms(void);
-void		ft_usleep(long int time_in_ms);
+void		ft_usleep(long int time_in_ms, t_data *data);
 
 //ROUTINE
 void	*routine(void *arg);

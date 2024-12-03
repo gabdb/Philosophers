@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:13:09 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/03 15:35:02 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:59:45 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	*routine(void *arg)
 	data = philo->data;
 	philo->last_meal_time = data->start_time;
 	if (philo->id % 2)// == 0 && philo->meals_eaten == 0)
-	ft_usleep(data->time_to_die / 2); //sleep a bit to avoid bug
+	ft_usleep(data->time_to_die / 2, data); //sleep a bit to avoid bug
 	while (1)
 	{
 		pthread_mutex_lock(&data->death_mutex);
@@ -140,7 +140,7 @@ void	*routine(void *arg)
 		printf("%lld %d is eating\n", get_time_ms() - data->start_time, philo->id);
 		philo->last_meal_time = get_time_ms();
 		pthread_mutex_unlock(&data->print_mutex);
-		ft_usleep(data->time_to_eat);
+		ft_usleep(data->time_to_eat, data);
 		pthread_mutex_unlock(data->forks + lf);
 		pthread_mutex_unlock(data->forks + rf);
 		philo->is_eating = 0;
@@ -153,7 +153,7 @@ void	*routine(void *arg)
 		pthread_mutex_lock(&data->print_mutex);
 		printf("%lld %d is sleeping\n", get_time_ms() - data->start_time, philo->id);
 		pthread_mutex_unlock(&data->print_mutex);
-		ft_usleep(data->time_to_sleep);
+		ft_usleep(data->time_to_sleep, data);
 		
 		//philo is done sleeping
 		if (data->someone_dead)

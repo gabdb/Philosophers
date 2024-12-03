@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 18:20:47 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/11/30 18:35:42 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:57:35 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,16 @@ long long get_time_ms(void)
     return (time.tv_sec * 1000) + (time.tv_usec / 1000);
 }
 
-void	ft_usleep(long int time_in_ms)
+void	ft_usleep(long int time_in_ms, t_data *data)
 {
 	long int	start_time;
 
 	start_time = 0;
 	start_time = get_time_ms();
 	while ((get_time_ms() - start_time) < time_in_ms)
+	{
+		if (data->someone_dead)
+			return ;
 		usleep(time_in_ms / 10);
+	}
 }
