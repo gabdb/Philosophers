@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 18:20:47 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/03 15:57:35 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:12:54 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 long long	my_atoi(const char *str)
 {
-	int		sign;
+	int			sign;
 	long long	res;
 	long long	buff;
 
 	if (!str)
-		return (0); //protection rajoutée
+		return (0);
 	sign = 1;
 	res = 0;
 	buff = 0;

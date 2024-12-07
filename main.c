@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:54:30 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/03 15:59:27 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:13:35 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,28 @@ void	handle_solo(t_data *data)
 int	main(int ac, char **av)
 {
 	int			i;
-	t_data		data;
+	t_data		d;
 	pthread_t	check_death;
 
-	if (!parsing(ac, av) || !(initialize_data(av, &data)) || !init_philo(&data))
+	if (!parsing(ac, av) || !(initialize_data(av, &d)) || !init_philo(&d))
 		return (0);
-	if (1 == data.number_philos)
-		return (handle_solo(&data), free_and_destroy(&data));
+	if (1 == d.number_philos)
+		return (handle_solo(&d), free_destroy(&d));
 	i = -1;
-	while (++i < data.number_philos)
+	while (++i < d.number_philos)
 	{
-		if (pthread_create(&data.philos[i].thread, NULL, routine, data.philos + i) != 0)
-			return (free_and_destroy(&data), write(2, "failed to create thread\n", 24), 1);
+		if (pthread_create(&d.philos[i].thread, NULL, routine, d.philos + i))
+			return (free_destroy(&d), write(2, "Error thread\n", 13), 1);
 	}
-	if (pthread_create(&check_death, NULL, check_dead, &data) != 0)
-		return (free_and_destroy(&data), write(2, "failed to create thread\n", 24), 1);
+	if (pthread_create(&check_death, NULL, check_dead, &d) != 0)
+		return (free_destroy(&d), write(2, "Error thread\n", 13), 1);
 	i = -1;
-	while (++i < data.number_philos)
+	while (++i < d.number_philos)
 	{
-		if (pthread_join(data.philos[i].thread, NULL))
-			return (free_and_destroy(&data), write(2, "problem with pthread_join\n", 26), 1);
+		if (pthread_join(d.philos[i].thread, NULL))
+			return (free_destroy(&d), write(2, "Error join\n", 11), 1);
 	}
 	if (pthread_join(check_death, NULL))
-		return (free_and_destroy(&data), write(2, "problem with pthread_join in CHECK_DEATH\n", 41), 1);
-	return (free_and_destroy(&data), pthread_mutex_destroy(&data.print_mutex), 0);
+		return (free_destroy(&d), write(2, "Error join\n", 11), 1);
+	return (free_destroy(&d), pthread_mutex_destroy(&d.print_mutex), 0);
 }

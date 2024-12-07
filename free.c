@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 17:43:16 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/03 14:26:23 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:04:54 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	big_free(pthread_mutex_t *forks, struct s_philo *philos)
 	free(philos);
 }
 
-int	free_and_destroy(t_data *data)
+int	free_destroy(t_data *data)
 {
 	int	i;
 
