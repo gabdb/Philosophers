@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 18:20:47 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/07 17:12:54 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:30:08 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ long long	my_atoi(const char *str)
 	return ((long long) sign * res);
 }
 
-long long get_time_ms(void)
+long long	get_time_ms(void)
 {
-    struct timeval time;
-    gettimeofday(&time, NULL);
-    return (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
 void	ft_usleep(long int time_in_ms, t_data *data)
@@ -60,4 +61,12 @@ void	ft_usleep(long int time_in_ms, t_data *data)
 			return ;
 		usleep(time_in_ms / 10);
 	}
+}
+
+void	print_mutex_norm(t_data *data, t_philo *philo)
+{
+	pthread_mutex_lock(&data->print_mutex);
+	printf("%lld %d is thinking\n", get_time_ms()
+		- data->start_time, philo->id);
+	pthread_mutex_unlock(&data->print_mutex);
 }

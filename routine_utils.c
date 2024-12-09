@@ -6,13 +6,13 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 14:24:35 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/07 21:43:23 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:10:07 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int check_last_meal(t_data *data, t_philo *philo)
+int	check_last_meal(t_data *data, t_philo *philo)
 {
 	pthread_mutex_lock(&data->death_mutex);
 	if (get_time_ms() - philo->last_meal_time > data->time_to_die)
@@ -33,13 +33,13 @@ int	is_someone_dead(t_data *data)
 	if (data->someone_dead)
 	{
 		pthread_mutex_unlock(&data->death_mutex);
-        return (1);
+		return (1);
 	}
 	pthread_mutex_unlock(&data->death_mutex);
 	return (0);
 }
 
-int take_forks(t_data *data, t_philo *philo)
+int	take_forks(t_data *data, t_philo *philo)
 {
 	int	lf;
 	int	rf;
@@ -49,19 +49,21 @@ int take_forks(t_data *data, t_philo *philo)
 		lf = philo->right_fork;
 	pthread_mutex_lock(data->forks + lf);
 	if (data->someone_dead)
-		return(pthread_mutex_unlock(data->forks + lf), 1);
+		return (pthread_mutex_unlock(data->forks + lf), 1);
 	pthread_mutex_lock(&data->print_mutex);
-	printf("%lld %d has taken a fork\n", get_time_ms() - data->start_time, philo->id);
+	printf("%lld %d has taken a fork\n", get_time_ms()
+		- data->start_time, philo->id);
 	pthread_mutex_unlock(&data->print_mutex);
 	rf = philo->right_fork;
 	if (philo->id == data->number_philos)
 		rf = philo->left_fork;
 	pthread_mutex_lock(data->forks + rf);
 	if (data->someone_dead)
-		return(pthread_mutex_unlock(data->forks + lf),
-		 pthread_mutex_unlock(data->forks + rf),1);
+		return (pthread_mutex_unlock(data->forks + lf),
+			pthread_mutex_unlock(data->forks + rf), 1);
 	pthread_mutex_lock(&data->print_mutex);
-	printf("%lld %d has taken a fork\n", get_time_ms() - data->start_time, philo->id);
+	printf("%lld %d has taken a fork\n", get_time_ms()
+		- data->start_time, philo->id);
 	pthread_mutex_unlock(&data->print_mutex);
 	return (0);
 }
@@ -99,7 +101,8 @@ int	ft_sieste(t_data *data, t_philo *philo)
 	if (data->someone_dead)
 		return (1);
 	pthread_mutex_lock(&data->print_mutex);
-	printf("%lld %d is sleeping\n", get_time_ms() - data->start_time, philo->id);
+	printf("%lld %d is sleeping\n", get_time_ms()
+		- data->start_time, philo->id);
 	pthread_mutex_unlock(&data->print_mutex);
 	ft_usleep(data->time_to_sleep, data);
 	return (0);

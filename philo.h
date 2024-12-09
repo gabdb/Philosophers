@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:55:41 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/07 21:43:40 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:29:39 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,33 +53,35 @@ typedef struct s_data
 }				t_data;
 
 // PARSING
-int		parsing(int ac, char **av);
+int			parsing(int ac, char **av);
 
 //INIT
-int		initialize_data(char **av, t_data *data);
-int		init_philo(t_data *data);
-void	die_eat_sleep(char **av, t_data *data);
+int			initialize_data(char **av, t_data *data);
+int			init_philo(t_data *data);
+void		die_eat_sleep(char **av, t_data *data);
 
 //FREE
-void	big_free(pthread_mutex_t *forks, t_philo *philos);
-int		free_destroy(t_data *data);
+void		big_free(pthread_mutex_t *forks, t_philo *philos);
+int			free_destroy(t_data *data);
 
 //UTILS
 long long	my_atoi(const char *str);
 long long	get_time_ms(void);
-void	ft_usleep(long int time_in_ms, t_data *data);
+void		ft_usleep(long int time_in_ms, t_data *data);
+void		print_mutex_norm(t_data *data, t_philo *philo);
 
 //ROUTINE
-void	mini_pause(t_data *data, t_philo *philo);
-void	*routine(void *arg);
-void	*check_dead(void *arg);
-int		all_meals_eaten(t_data *data);
+int			dead_util(t_data *data, int nb);
+void		mini_pause(t_data *data, t_philo *philo);
+void		*routine(void *arg);
+void		*check_dead(void *arg);
+int			all_meals_eaten(t_data *data);
 
 //ROUTINE DECOUPAGE
-int	is_someone_dead(t_data *data);
-int check_last_meal(t_data *data, t_philo *philo);
-int take_forks(t_data *data, t_philo *philo);
-int	ft_eat(t_data *data, t_philo *philo);
-int	ft_sieste(t_data *data, t_philo *philo);
+int			is_someone_dead(t_data *data);
+int			check_last_meal(t_data *data, t_philo *philo);
+int			take_forks(t_data *data, t_philo *philo);
+int			ft_eat(t_data *data, t_philo *philo);
+int			ft_sieste(t_data *data, t_philo *philo);
 
 #endif
