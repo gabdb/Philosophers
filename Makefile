@@ -1,10 +1,9 @@
 NAME = philo
 
-# Compiler and flags
 CC = cc
+
 CFLAGS = -Wall -Wextra -Werror -pthread #-fsanitize=thread
 
-# Source files
 SRCS =	main.c \
 		init.c \
 		routine.c \
@@ -13,10 +12,8 @@ SRCS =	main.c \
 		parsing.c \
 		routine_utils.c \
 
-# Object files
 OBJS = $(SRCS:.c=.o)
 
-# Rules
 all: $(NAME)
 
 $(NAME): $(OBJS)
