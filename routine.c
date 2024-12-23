@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:13:09 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/09 14:30:00 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/23 14:46:39 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	dead_util(t_data *data, int nb)
 
 void	mini_pause(t_data *data, t_philo *philo)
 {
-	if (philo->id % 2)
-		ft_usleep(data->time_to_die / 2, data);
+	if (philo->id % 2 == 0)
+		usleep(data->time_to_die * 150);
 }
 
 int	all_meals_eaten(t_data *data)
