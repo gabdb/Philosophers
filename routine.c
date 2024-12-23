@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:13:09 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/23 15:42:17 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/23 17:10:15 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	*routine(void *arg)
 	philo->last_meal_time = data->start_time;
 	while (1)
 	{
-		if (philo->meals_eaten < 1 && philo->id % 2 == 0)
-			ft_usleep(data->time_to_eat / 2, data);
+		if (philo->meals_eaten < 1 && philo->id % 2 == 1)
+			ft_usleep(data->time_to_eat / 3, data);
 		if (is_someone_dead(data) || check_last_meal(data, philo))
 			break ;
 		if (data->number_meals != -1
