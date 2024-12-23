@@ -11,6 +11,7 @@ SRCS =	main.c \
 		free.c \
 		parsing.c \
 		routine_utils.c \
+		fork.c \
 
 OBJS = $(SRCS:.c=.o)
 

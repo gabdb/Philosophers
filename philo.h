@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:55:41 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/09 14:29:39 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/23 15:32:14 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,9 @@ int			check_last_meal(t_data *data, t_philo *philo);
 int			take_forks(t_data *data, t_philo *philo);
 int			ft_eat(t_data *data, t_philo *philo);
 int			ft_sieste(t_data *data, t_philo *philo);
+
+//FORK TEST
+int			manage_forks(t_data *data, t_philo *philo);
+int			take_forks(t_data *data, t_philo *philo);
 
 #endif
