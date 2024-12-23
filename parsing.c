@@ -6,16 +6,38 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 18:11:04 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/03 14:25:31 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:49:55 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+int	non_numeric(int ac, char **av)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < ac)
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			if (av[i][j] > '9' || av[i][j] < '0')
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	parsing(int ac, char **av)
 {
 	long long	x;
 
+	if (non_numeric(ac, av))
+		return (write(2, "non-numeric character !\n", 24), 0);
 	if (ac < 5 || ac > 6)
 		return (write(2, "wrong number of arguments !\n", 28), 0);
 	x = my_atoi(av[1]);
