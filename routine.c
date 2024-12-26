@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:13:09 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/23 17:26:01 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:53:25 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,14 @@ void	*check_dead(void *arg)
 	return (NULL);
 }
 
+void	mini_pause(t_data *data, int id)
+{
+	if (id % 2 == 0)
+		usleep(data->time_to_eat * 200);
+	else if (id == data->number_philos)
+		usleep(data->time_to_eat * 800);
+}
+
 void	*routine(void *arg)
 {
 	t_data		*data;
@@ -88,10 +96,11 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	data = philo->data;
 	philo->last_meal_time = data->start_time;
+	// if (philo->id % 2 == 0)
+	// 	ft_usleep(data->time_to_eat / 4, data);
+	mini_pause(data, philo->id);
 	while (1)
 	{
-		if (philo->meals_eaten < 1 && philo->id % 2 == 0)
-			ft_usleep(data->time_to_eat / 2, data);
 		if (is_someone_dead(data) || check_last_meal(data, philo))
 			break ;
 		if (data->number_meals != -1

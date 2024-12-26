@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 18:11:04 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/23 16:49:55 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:12:17 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	parsing(int ac, char **av)
 	long long	x;
 
 	if (non_numeric(ac, av))
-		return (write(2, "non-numeric character !\n", 24), 0);
+		return (write(2, "invalid character input !\n", 26), 0);
 	if (ac < 5 || ac > 6)
 		return (write(2, "wrong number of arguments !\n", 28), 0);
 	x = my_atoi(av[1]);

@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:55:41 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/23 15:32:14 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:51:12 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void		print_mutex_norm(t_data *data, t_philo *philo);
 
 //ROUTINE
 int			dead_util(t_data *data, int nb);
-void		mini_pause(t_data *data, t_philo *philo);
 void		*routine(void *arg);
 void		*check_dead(void *arg);
 int			all_meals_eaten(t_data *data);

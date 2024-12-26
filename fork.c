@@ -6,12 +6,13 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:18:13 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/23 15:39:52 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:19:45 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
 int	last_takes_forks(t_data *data, t_philo *philo)
 {
 	int	lf;
@@ -47,6 +48,7 @@ int	manage_forks(t_data *data, t_philo *philo)
 		result = last_takes_forks(data, philo);
 	return (result);
 }
+*/
 
 int	take_forks(t_data *data, t_philo *philo)
 {
