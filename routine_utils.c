@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 14:24:35 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/23 15:19:03 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:25:49 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	ft_eat(t_data *data, t_philo *philo)
 	{
 		pthread_mutex_unlock(data->forks + lf);
 		pthread_mutex_unlock(data->forks + rf);
+		pthread_mutex_unlock(&data->death_mutex);
 		return (1);
 	}
 	pthread_mutex_unlock(&data->death_mutex);
@@ -75,6 +76,6 @@ int	ft_sieste(t_data *data, t_philo *philo)
 	printf("%lld %d is sleeping\n", get_time_ms()
 		- data->start_time, philo->id);
 	pthread_mutex_unlock(&data->print_mutex);
-	ft_usleep(data->time_to_sleep, data);
+	usleep(data->time_to_sleep * 1000);
 	return (0);
 }

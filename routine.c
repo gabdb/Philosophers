@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:13:09 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/26 15:55:58 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:20:59 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ void	*check_dead(void *arg)
 				return (NULL);
 			nb++;
 		}
-		if (all_meals_eaten(data))
+		if (all_meals_eaten(data) == 0)
+			usleep(1000);
+		else
 			break ;
 	}
 	return (NULL);
