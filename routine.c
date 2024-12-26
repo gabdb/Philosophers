@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:13:09 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/26 15:53:25 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:55:58 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	data = philo->data;
 	philo->last_meal_time = data->start_time;
-	// if (philo->id % 2 == 0)
-	// 	ft_usleep(data->time_to_eat / 4, data);
 	mini_pause(data, philo->id);
 	while (1)
 	{
