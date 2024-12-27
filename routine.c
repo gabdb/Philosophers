@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:13:09 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/26 18:20:59 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:28:57 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	*routine(void *arg)
 		if (ft_eat(data, philo))
 			break ;
 		ft_sieste(data, philo);
-		if (data->someone_dead)
+		if (is_someone_dead(data))
 			break ;
 		print_mutex_norm(data, philo);
 	}

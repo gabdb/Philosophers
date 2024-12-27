@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:18:13 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/26 15:19:45 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/27 15:35:31 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	take_forks(t_data *data, t_philo *philo)
 	if (philo->id == data->number_philos)
 		lf = philo->right_fork;
 	pthread_mutex_lock(data->forks + lf);
-	if (data->someone_dead)
-		return (pthread_mutex_unlock(data->forks + lf), 1);
 	pthread_mutex_lock(&data->print_mutex);
+	if (is_someone_dead(data))
+		return (pthread_mutex_unlock(data->forks + lf), pthread_mutex_unlock(&data->print_mutex), 1);
 	printf("%lld %d has taken a fork\n", get_time_ms()
 		- data->start_time, philo->id);
 	pthread_mutex_unlock(&data->print_mutex);
@@ -69,10 +69,10 @@ int	take_forks(t_data *data, t_philo *philo)
 	if (philo->id == data->number_philos)
 		rf = philo->left_fork;
 	pthread_mutex_lock(data->forks + rf);
-	if (data->someone_dead)
-		return (pthread_mutex_unlock(data->forks + lf),
-			pthread_mutex_unlock(data->forks + rf), 1);
 	pthread_mutex_lock(&data->print_mutex);
+	if (is_someone_dead(data))
+		return (pthread_mutex_unlock(data->forks + lf),
+			pthread_mutex_unlock(data->forks + rf), pthread_mutex_unlock(&data->print_mutex), 1);
 	printf("%lld %d has taken a fork\n", get_time_ms()
 		- data->start_time, philo->id);
 	pthread_mutex_unlock(&data->print_mutex);

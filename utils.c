@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 18:20:47 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/26 18:27:05 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:32:48 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,13 @@ void	ft_usleep(long int time_in_ms, t_data *data)
 
 void	print_mutex_norm(t_data *data, t_philo *philo)
 {
-	usleep(15);
+	usleep(10);
 	pthread_mutex_lock(&data->print_mutex);
+	if (is_someone_dead(data))
+	{
+		pthread_mutex_unlock(&data->print_mutex);
+		return ;
+	}
 	printf("%lld %d is thinking\n", get_time_ms()
 		- data->start_time, philo->id);
 	pthread_mutex_unlock(&data->print_mutex);
