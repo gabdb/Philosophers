@@ -6,7 +6,7 @@
 /*   By: gnyssens <gnyssens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:54:30 by gnyssens          #+#    #+#             */
-/*   Updated: 2024/12/07 17:13:35 by gnyssens         ###   ########.fr       */
+/*   Updated: 2024/12/27 17:34:02 by gnyssens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ int	main(int ac, char **av)
 	}
 	if (pthread_join(check_death, NULL))
 		return (free_destroy(&d), write(2, "Error join\n", 11), 1);
-	return (free_destroy(&d), pthread_mutex_destroy(&d.print_mutex), 0);
+	return (free_destroy(&d), 0);
 }
